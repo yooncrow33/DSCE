@@ -2,6 +2,7 @@ package com.dsce.base.sys.input;
 
 
 import com.dsce.base.sys.ViewMetrics;
+import com.dsce.base.sys.mouse.Click;
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -34,5 +35,6 @@ public class MouseListener extends MouseAdapter implements MouseWheelListener {
     @Override
     public void mousePressed(MouseEvent e) {
         if (inputExecutor != null) { inputExecutor.mouseClickExe(); }
+        Click.g().clickEvent();
     }
 }

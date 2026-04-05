@@ -2,6 +2,7 @@ package com.dsce.base.sys;
 
 import com.dsce.base.core.Game;
 import com.dsce.base.sys.input.InputHandler;
+import com.dsce.base.sys.mouse.Mouse;
 import com.dsce.base.sys.view.IFrameSize;
 import com.dsce.base.sys.view.IPause;
 import com.dsce.base.sys.input.MouseListener;
@@ -97,7 +98,8 @@ public final class Main extends JPanel implements IFrameSize, IPause {
     }
 
     private void update(double deltaTime) {
-        //game.update(deltaTime);
+        game.update(deltaTime);
+        Mouse.g().update(viewMetrics.getVirtualMouseX(), viewMetrics.getVirtualMouseY());
     }
 
     @Override public boolean isPause() {return pause;}

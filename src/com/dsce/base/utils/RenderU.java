@@ -10,10 +10,10 @@ public class RenderU {
 
         int drawX = x - (textWidth / 2);
 
-        //int textHeight = metrics.getAscent();
-        //int drawY = y + (textHeight / 2);
+        int textHeight = metrics.getAscent();
+        int drawY = y + (textHeight / 2);
 
-        g.drawString(text, drawX, y);
+        g.drawString(text, drawX, drawY);
     }
 
     public static void applyQualityHints(Graphics2D g2) {

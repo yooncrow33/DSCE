@@ -4,7 +4,7 @@ public class Lang {
     public enum type {
         c     (0.1f,0.9f,0.1f,0.2f,0.9f,0.8f),
         cpp   (0.3f,0.8f,0.2f,0.3f,0.7f,0.9f),
-        java  (0.6f,0.7f,0.6f,0.7f,0.5f,0.7f),
+        java  (0.6f,0.7f,0.6f,0.7f,0.5f,0.5f),
         js    (0.9f,0.1f,0.2f,0.1f,0.1f,0.2f),
         py    (1.0f,0.1f,0.3f,0.1f,0.1f,0.2f),
         cs    (0.6f,0.6f,0.5f,0.7f,0.4f,0.7f),
