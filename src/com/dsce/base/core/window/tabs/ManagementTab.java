@@ -12,8 +12,6 @@ public class ManagementTab extends Tab {
     public static int scrollY = 0;
     public static int maxScrollY = 0;
 
-    private boolean click = false;
-
     //public static Project selectedProject = Game.projects.get(0);
     public static int managementSelectedProjectIndex = 0;
 
@@ -24,7 +22,6 @@ public class ManagementTab extends Tab {
                 managementSelectedProjectIndex = i;
             }
         }
-        System.out.println("click");
     }
 
     public void renderRight(Graphics g, int x) {
@@ -49,19 +46,17 @@ public class ManagementTab extends Tab {
 
     @Override
     public void render(Graphics g) {
+        if (Game.projects.isEmpty()) {
+            g.setColor(new Color(25, 115, 175));
+            g.fillRect(0,100,1920,880);
+            g.setColor(Color.white);
+            g.setFont(new Font(Font.MONOSPACED,Font.BOLD,140));
+            RenderU.drawStringCenter(g,"Create New Project!",(1920/2),350);
+            return;
+        } else {
+            clickEvent();
+        }
         for (int i = 0; i < Game.projects.size(); i++) {
-            if (click) {
-                if (100+scrollY+(i*50)<= Mouse.g().y()&&100+50+scrollY+(i*50)>=Mouse.g().y()) {
-                    g.setColor(Color.white);
-                    g.fillRect(0, 100 + scrollY + (i * 50), 1920, 50);
-                    g.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 32));
-                     g.setColor(Color.blue);
-                    g.drawString(Game.projects.get(i).getProjectType().toString(), 10, 100 + scrollY + (i * 50) + 35);
-                    g.setColor(Color.black);
-                    g.drawString("| " + Game.projects.get(i).getName(), 200, 100 + scrollY + (i * 50) + 35);
-                }
-            }
-
             if (i==managementSelectedProjectIndex) {
                 g.setColor(Color.white);
                 g.fillRect(0, 100 + scrollY + (i * 50), 1920, 50);

@@ -197,6 +197,8 @@ public class ProjectCreateTab extends Tab {
     @Override
     public void render(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
+        g.setColor(new Color(25, 115, 175));
+        g.fillRect(0,100,1920,880);
         switch (step) {
             case 0:
                 g.setColor(Color.white);

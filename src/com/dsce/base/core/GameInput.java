@@ -9,6 +9,8 @@ import java.awt.event.KeyEvent;
 
 public class GameInput extends com.dsce.base.sys.input.InputExecutor {
 
+    boolean shift = false;
+
     public GameInput() {
         InputHandler.registerInputExecutor(this);
         MouseListener.registerInputExecutor(this);
@@ -16,14 +18,22 @@ public class GameInput extends com.dsce.base.sys.input.InputExecutor {
 
     @Override
     public void keyPressedExe(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_P) {
-            ProjectCreateTab.addDummyProject();
+        if (e.getKeyCode() == KeyEvent.VK_SHIFT) {
+            shift = true;
         }
+        if (shift) {
+            if (e.getKeyCode() == KeyEvent.VK_P) {
+                //ProjectCreateTab.addDummyProject();
+            }
+        }
+
     }
 
     @Override
     public void keyReleasedExe(KeyEvent e) {
-
+        if (e.getKeyCode() == KeyEvent.VK_SHIFT) {
+            shift = true;
+        }
     }
 
     @Override
