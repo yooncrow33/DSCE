@@ -113,7 +113,7 @@ public class StaffTab extends Tab {
                         g.fillRect(0, 100 + listScrollY + (i * 50), 1920, 50);
                         g.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 32));
                         g.setColor(Color.blue);
-                        g.drawString(String.valueOf(Game.staffs.get(i).getXp()), 10, 100 + listScrollY + (i * 50) + 35);
+                        //g.drawString(String.valueOf(Game.staffs.get(i).getTeam()), 10, 100 + listScrollY + (i * 50) + 35);
                         g.setColor(Color.black);
                         g.drawString("| " + Game.staffs.get(i).getName(), 200, 100 + listScrollY + (i * 50) + 35);
                     } else {

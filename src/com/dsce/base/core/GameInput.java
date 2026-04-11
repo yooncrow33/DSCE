@@ -1,5 +1,6 @@
 package com.dsce.base.core;
 
+import com.dsce.base.core.graphics.overlay.internal.OverlayManager;
 import com.dsce.base.core.window.tabs.ManagementTab;
 import com.dsce.base.core.window.tabs.ProjectCreateTab;
 import com.dsce.base.core.window.tabs.StaffTab;
@@ -43,12 +44,14 @@ public class GameInput extends com.dsce.base.sys.input.InputExecutor {
 
     @Override
     public void scrollUpExe() {
+        OverlayManager.scrollUp();
         ManagementTab.scrollUp();
         StaffTab.scrollUp();
     }
 
     @Override
     public void scrollDownExe() {
+        OverlayManager.scrollDown();
         ManagementTab.scrollUDown();
         StaffTab.scrollUDown();
     }

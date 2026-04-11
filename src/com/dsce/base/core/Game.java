@@ -2,8 +2,11 @@ package com.dsce.base.core;
 
 import com.dsce.base.core.contents.project.Project;
 import com.dsce.base.core.contents.staff.Staff;
+import com.dsce.base.core.contents.team.Team;
 import com.dsce.base.core.graphics.Button;
 import com.dsce.base.core.graphics.Shutter;
+import com.dsce.base.core.graphics.overlay.StaffListOverly;
+import com.dsce.base.core.graphics.overlay.internal.OverlayManager;
 import com.dsce.base.core.popup.CommitPopup;
 import com.dsce.base.core.popup.internal.PopupManager;
 import com.dsce.base.core.window.Window;
@@ -36,6 +39,7 @@ public class Game implements IClickEvent {
 
     public static ArrayList<Project> projects = new ArrayList<>();
     public static ArrayList<Staff> staffs = new ArrayList<>();
+    public static ArrayList<Team> teams = new ArrayList<>();
 
     public static int ap = 99990;
     public static int money = 99990;
@@ -49,16 +53,36 @@ public class Game implements IClickEvent {
             buttonMap.put(barButtonsKeys[i],new Button(10+(i*260),1010,250,60));
         }
 
-        CommitPopup ndp = new CommitPopup(this,"Go to Next Day.","nightnp", GameState.state.day);
-        CommitPopup commitp = new CommitPopup(this,"Commit?", "daynp", GameState.state.night);
-
+        new CommitPopup(this,"Go to Next Day.","nightnp", GameState.state.day);
+        new CommitPopup(this,"Commit?", "daynp", GameState.state.night);
 
         //end constructor
         FileManager.load();
+
+        new StaffListOverly("staff");
     }
 
     public void update(double deltaTime) {
         shutter.update();
+    }
+
+    public void registerStaffForTeam(Staff staff) {
+        for (Team t:teams) {
+            if (t.getName().equals(staff.getTeam())) {
+                t.staffs.add(staff);
+            }
+        }
+    }
+
+    public void removeStaffForTeam(Staff staff) {
+        for (Team t:teams) {
+            for (int i = 0; i<t.staffs.size(); i++) {
+                if (t.staffs.get(i)==staff) {
+                    t.staffs.remove(i);
+                    break;
+                }
+            }
+        }
     }
 
     @Override
@@ -73,8 +97,12 @@ public class Game implements IClickEvent {
             }
         }
         if (state == GameState.state.day) {
+            OverlayManager.clickEvent();
             if (buttonMap.get("commit").isOnMouse()) {
                 PopupManager.enablePopup("daynp");
+            }
+            if (buttonMap.get("team").isOnMouse()) {
+                OverlayManager.enableListOverlay("staff");
             }
             if (window.windowTabIndex == 0) {
                 window.projectCreateTab.clickEvent();

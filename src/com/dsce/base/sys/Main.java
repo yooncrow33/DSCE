@@ -1,6 +1,7 @@
 package com.dsce.base.sys;
 
 import com.dsce.base.core.Game;
+import com.dsce.base.core.graphics.overlay.internal.OverlayManager;
 import com.dsce.base.core.popup.internal.PopupManager;
 import com.dsce.base.sys.input.InputHandler;
 import com.dsce.base.sys.mouse.Mouse;
@@ -26,7 +27,7 @@ public final class Main extends JPanel implements IFrameSize, IPause {
     private Console console = new Console();
 
     public static Game game = new Game();
-    PopupManager popupManager = new PopupManager();
+    public PopupManager popupManager = new PopupManager();
 
     public Console getConsole() {
         return console;
@@ -123,6 +124,8 @@ public final class Main extends JPanel implements IFrameSize, IPause {
         popupManager.render(g);
 
         console.render(g);
+
+        OverlayManager.render(g);
 
     }
 

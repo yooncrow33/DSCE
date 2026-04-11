@@ -7,6 +7,7 @@ import com.dsce.base.core.contents.project.internal.Engine;
 import com.dsce.base.core.contents.project.internal.Graphics;
 import com.dsce.base.core.contents.project.internal.Lang;
 import com.dsce.base.core.contents.staff.Staff;
+import com.dsce.base.core.contents.team.Team;
 
 import javax.swing.*;
 import java.io.File;
@@ -54,12 +55,21 @@ public class FileManager {
         p.setProperty("staff_count", String.valueOf(staffs.size()));
 
         for (int i = 0; i < staffs.size(); i++) {
-            System.out.println("enter for");
             Staff sf = staffs.get(i);
             String prefix = "staff" + i + "_";
             // Staff 클래스 내부에 정의된 저장 메서드 호출
             sf.saveToProperties(p, prefix);
         }
+
+        ArrayList<Team> teams = Game.teams;
+        p.setProperty("team_count", String.valueOf(staffs.size()));
+
+        for (int i = 0; i < staffs.size(); i++) {
+            Team t = teams.get(i);
+            String prefix = "team" + i + "_";
+            p.setProperty(prefix+"name", String.valueOf(t.getName()));
+        }
+
 
         // 폴더 생성 확인
         File file = new File(path);
@@ -138,6 +148,16 @@ public class FileManager {
                 loadedStaffs.add(sf);
             }
             Game.staffs = loadedStaffs;
+
+            int tCount = Integer.parseInt(p.getProperty("staff_count", "0"));
+            ArrayList<Team> loadedTeams = new ArrayList<>();
+
+            for (int i = 0; i < tCount; i++) {
+                Team t = new Team();
+                String prefix = "team" + i + "_";
+                t.registerName(p.getProperty(String.valueOf(prefix+"name")));
+            }
+            Game.teams = loadedTeams;
 
             Game.projects = loadedProjects;
 

@@ -3,8 +3,9 @@ package com.dsce.base.core.contents.project;
 import com.dsce.base.core.contents.project.internal.Engine;
 import com.dsce.base.core.contents.project.internal.Graphics;
 import com.dsce.base.core.contents.project.internal.Lang;
+import com.dsce.base.core.graphics.overlay.internal.ArrList;
 
-public class Project {
+public class Project implements ArrList {
     String name = "if you can see this word, it's a bug. please report to me about this bug. github: Crunch-Life";
     float codeQuality = 0;
     float graphics = 0.0f;
@@ -72,4 +73,14 @@ public class Project {
     public void registerStability(float stability) { this.stability = stability; }
     public void registerFileSize(int fileSize) { this.fileSize = fileSize; }
     public void registerScale(int scale) { this.scale = scale; }
+
+    @Override
+    public String getLabel() {
+        return getName();
+    }
+
+    @Override
+    public String getValue() {
+        return getProjectType().toString();
+    }
 }

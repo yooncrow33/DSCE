@@ -4,11 +4,12 @@ import com.dsce.base.core.contents.project.internal.Engine;
 import com.dsce.base.core.contents.project.internal.Graphics;
 import com.dsce.base.core.contents.project.internal.Lang;
 import com.dsce.base.core.contents.staff.inetnal.Trait;
+import com.dsce.base.core.graphics.overlay.internal.ArrList;
 
 import java.util.ArrayList;
 import java.util.Properties;
 
-public class Staff {
+public class Staff implements ArrList {
     float xp;
     String name;
 
@@ -37,6 +38,8 @@ public class Staff {
     Lang.type langStack;
     Graphics.type graphicsStack;
 
+    String team;
+
     public ArrayList<Trait> Traits = new ArrayList<>();
 
     public Staff() {
@@ -63,8 +66,8 @@ public class Staff {
     public void registerName(String name) { this.name = name; }
     public float getXp() { return xp; }
     public String getName() { return name; }
-    public float getcLevel() { return cLevel; }
-    public float getCppLevel() { return cppLevel; }
+    public String getTeam() {return team;}
+    public void registerTeam(String team) {this.team = team;}
 
     public void registerLaborCost(int laborCost) {
         this.laborCost = laborCost;
@@ -74,6 +77,8 @@ public class Staff {
         return laborCost;
     }
 
+    public float getcLevel() { return cLevel; }
+    public float getCppLevel() { return cppLevel; }
     public float getRustLevel() { return rustLevel; }
     public float getJavaLevel() { return javaLevel; }
     public float getKotlinLevel() { return kotlinLevel; }
@@ -130,6 +135,7 @@ public class Staff {
     public void saveToProperties(Properties p, String prefix) {
         p.setProperty(prefix + "name", name);
         p.setProperty(prefix + "xp", String.valueOf(xp));
+        p.setProperty(prefix+"team", team);
 
         // 언어 레벨
         p.setProperty(prefix + "cLevel", String.valueOf(cLevel));
@@ -167,6 +173,7 @@ public class Staff {
     public void loadFromProperties(Properties p, String prefix) {
         this.name = p.getProperty(prefix + "name", "Unknown Staff");
         this.xp = Float.parseFloat(p.getProperty(prefix + "xp", "0.0"));
+        this.team = p.getProperty(prefix+"team","Basic");
 
         this.cLevel = Float.parseFloat(p.getProperty(prefix + "cLevel", "0.0"));
         this.cppLevel = Float.parseFloat(p.getProperty(prefix + "cppLevel", "0.0"));
@@ -203,4 +210,13 @@ public class Staff {
         updateStack(); // 로드 후 스택 갱신
     }
 
+    @Override
+    public String getLabel() {
+        return getName();
+    }
+
+    @Override
+    public String getValue() {
+        return "";
+    }
 }
