@@ -7,6 +7,7 @@ import com.dsce.base.sys.mouse.Mouse;
 import com.dsce.base.sys.view.IFrameSize;
 import com.dsce.base.sys.view.IPause;
 import com.dsce.base.sys.input.MouseListener;
+import com.dsce.base.utils.RTraitOption;
 
 import javax.swing.*;
 import java.awt.*;

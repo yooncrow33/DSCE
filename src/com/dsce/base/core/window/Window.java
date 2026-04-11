@@ -1,7 +1,9 @@
 package com.dsce.base.core.window;
 
+import com.dsce.base.core.contents.staff.Staff;
 import com.dsce.base.core.window.tabs.ManagementTab;
 import com.dsce.base.core.window.tabs.ProjectCreateTab;
+import com.dsce.base.core.window.tabs.StaffTab;
 import com.dsce.base.utils.Utils;
 
 import java.awt.*;
@@ -13,6 +15,7 @@ public class Window {
 
     public ProjectCreateTab projectCreateTab = new ProjectCreateTab();
     public ManagementTab managementTab = new ManagementTab();
+    public StaffTab staffsTab = new StaffTab();
 
     public void render(Graphics g) {
         switch (windowTabIndex) {
@@ -25,12 +28,12 @@ public class Window {
                 managementTab.render(g);
                 break;
             case 2:
-                //docs
+                //team
 
                 break;
             case 3:
                 //staff
-
+                staffsTab.render(g);
                 break;
             case 4:
                 //break room

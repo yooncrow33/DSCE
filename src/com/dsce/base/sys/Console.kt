@@ -12,8 +12,16 @@ class Console() {
     var isOpen: Boolean = false
         private set
     private val buffer = StringBuilder()
-    private val logs = ArrayList<String>()
-    private var consoleExecutor: ConsoleExecutor? = null
+    companion object {
+        @JvmField
+        var logs: ArrayList<String> = ArrayList<String>()
+        private var consoleExecutor: ConsoleExecutor? = null
+
+        @JvmStatic
+        fun  registerConsoleExecutor(consoleExecutor: ConsoleExecutor) {
+            if (this.consoleExecutor != null) { this.consoleExecutor = consoleExecutor; }
+        }
+    }
 
     private val MAX_LINES = 10
 
@@ -21,10 +29,6 @@ class Console() {
 
     fun toggle() {
         isOpen = !isOpen
-    }
-
-    fun registerConsoleExecutor(consoleExecutor: ConsoleExecutor) {
-        if (consoleExecutor != null) { this.consoleExecutor = consoleExecutor; }
     }
 
     fun inputKey(key: Char, code: Int) {
@@ -52,7 +56,7 @@ class Console() {
         val args = input.split(" ")
         val cmd = args[0].lowercase()
 
-        consoleExecutor?.exe(cmd)
+        consoleExecutor?.exe(args)
 
         buffer.setLength(0)
     }

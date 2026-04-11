@@ -1,12 +1,16 @@
 package com.dsce.base.core;
 
 import com.dsce.base.core.contents.project.Project;
+import com.dsce.base.core.contents.staff.Staff;
 import com.dsce.base.core.graphics.Button;
 import com.dsce.base.core.graphics.Shutter;
 import com.dsce.base.core.popup.CommitPopup;
 import com.dsce.base.core.popup.internal.PopupManager;
 import com.dsce.base.core.window.Window;
+import com.dsce.base.sys.Console;
 import com.dsce.base.sys.file.FileManager;
+import com.dsce.base.sys.input.InputHandler;
+import com.dsce.base.sys.input.MouseListener;
 import com.dsce.base.sys.mouse.Click;
 import com.dsce.base.sys.mouse.IClickEvent;
 import com.dsce.base.utils.RenderU;
@@ -19,8 +23,8 @@ import java.util.Map;
 public class Game implements IClickEvent {
     public static Map<String, Button> buttonMap = new LinkedHashMap<>();
 
-    String barButtonsKeys[] = {"newProject","projectManagement","docs","staff","breakroom","community"};
-    String barButtonLabels[] = {"New Project","Management","Docs","Staff","Break room","Community"};
+    String barButtonsKeys[] = {"newProject","projectManagement","team","staff","breakroom","community"};
+    String barButtonLabels[] = {"New Project","Management","Team","Staff","Break room","Community"};
 
     GameState.state state = GameState.state.night;
 
@@ -28,8 +32,13 @@ public class Game implements IClickEvent {
     public final Shutter shutter = new Shutter(this);
 
     public GameInput gameInput = new GameInput();
+    public GameConsole gameConsole = new GameConsole(this);
 
     public static ArrayList<Project> projects = new ArrayList<>();
+    public static ArrayList<Staff> staffs = new ArrayList<>();
+
+    public static int ap = 99990;
+    public static int money = 99990;
 
     public Game() {
         Click.g().registerClickEventObject(this::clickEvent);
@@ -54,6 +63,9 @@ public class Game implements IClickEvent {
 
     @Override
     public void clickEvent() {
+        InputHandler.registerInputExecutor(gameInput);
+        MouseListener.registerInputExecutor(gameInput);
+        Console.registerConsoleExecutor(gameConsole);
         for (int i = 0; i < barButtonsKeys.length; i++) {
             if (buttonMap.get(barButtonsKeys[i]).isOnMouse()) {
                 window.windowTabIndex = i;
@@ -69,6 +81,9 @@ public class Game implements IClickEvent {
             }
             if (window.windowTabIndex == 1) {
                 window.managementTab.clickEvent();
+            }
+            if (window.windowTabIndex == 3) {
+                window.staffsTab.clickEvent();
             }
         } else if (state == GameState.state.night) {
             if (buttonMap.get("commit").isOnMouse()) {

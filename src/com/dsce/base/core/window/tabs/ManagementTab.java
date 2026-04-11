@@ -30,10 +30,10 @@ public class ManagementTab extends Tab {
     public void renderRight(Graphics g, int x) {
         Graphics2D g2 = (Graphics2D) g;
         g.setColor(new Color(25, 115, 175));
-        g.fillRect(x,100+panelScrollY,1220,880);
+        g.fillRect(x,100+panelScrollY,1220,880+800);
         g2.setStroke(new BasicStroke(2f));
         g.setColor(Color.white);
-        g.drawRect(x,100+panelScrollY,1220,880);
+        g.drawRect(x,100+panelScrollY,1220,880+800);
 
         Project selectedProject = Game.projects.get(managementSelectedProjectIndex);
 
@@ -56,10 +56,8 @@ public class ManagementTab extends Tab {
             g.fillRect(0,100,1920,880);
             g.setColor(Color.white);
             g.setFont(new Font(Font.MONOSPACED,Font.BOLD,140));
-            RenderU.drawStringCenter(g,"Create New Project!",(1920/2),350);
+            RenderU.drawStringCenter(g,"No Project!",(1920/2),350);
             return;
-        } else {
-            clickEvent();
         }
         for (int i = 0; i < Game.projects.size(); i++) {
             if (i==managementSelectedProjectIndex) {
@@ -101,17 +99,24 @@ public class ManagementTab extends Tab {
 
     public static void scrollUp() {
         if (Game.window.windowTabIndex != 1) return;
-        listScrollY += 25;
-        if (listScrollY > 0) listScrollY = 0;
-        panelScrollY += 25;
-        if (panelScrollY > 0) panelScrollY = 0;
+        if (Mouse.g().x()<=700) {
+            listScrollY += 25;
+            if (listScrollY > 0) listScrollY = 0;
+        } else {
+            panelScrollY += 25;
+            if (panelScrollY > 0) panelScrollY = 0;
+        }
     }
 
     public static void scrollUDown() {
         if (Game.window.windowTabIndex != 1) return;
-        listScrollY -= 25;
-        if (listScrollY < -maxListScrollY) listScrollY = -maxListScrollY;
-        panelScrollY -= 25;
-        if (panelScrollY < -maxPanelScrollY) panelScrollY = -maxPanelScrollY;
+
+        if (Mouse.g().x()<=700) {
+            listScrollY -= 25;
+            if (listScrollY < -maxListScrollY) listScrollY = -maxListScrollY;
+        } else {
+            panelScrollY -= 25;
+            if (panelScrollY < -maxPanelScrollY) panelScrollY = -maxPanelScrollY;
+        }
     }
 }

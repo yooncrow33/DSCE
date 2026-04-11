@@ -7,6 +7,7 @@ import java.awt.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class PopupManager {
     private static Map<String, Popup> popups = new HashMap<>();
@@ -26,7 +27,7 @@ public class PopupManager {
     public static void enablePopup(String key) {
         for (Popup p : popups.values()) {
             p.enabled = false;
-            if (p.key == key) {
+            if (Objects.equals(p.key, key)) {
                 p.enabled = true;
             }
         }

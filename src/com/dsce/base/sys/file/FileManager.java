@@ -6,6 +6,7 @@ import com.dsce.base.core.contents.project.ProjectType;
 import com.dsce.base.core.contents.project.internal.Engine;
 import com.dsce.base.core.contents.project.internal.Graphics;
 import com.dsce.base.core.contents.project.internal.Lang;
+import com.dsce.base.core.contents.staff.Staff;
 
 import javax.swing.*;
 import java.io.File;
@@ -16,15 +17,15 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 public class FileManager {
-    private static final String path = System.getProperty("user.home") + File.separator + ".dsce" + File.separator + "save" + File.separator + "save.properties";
+    private static final String path = System.getProperty("user.home") + File.separator + ".dsce" + File.separator + "save" + File.separator + "save.Traits";
 
-    // 저장 메서드
     public static void save() {
         Properties p = new Properties();
-        ArrayList<Project> projects = Game.projects; // Game 클래스에 getProjects()가 있다고 가정
+        ArrayList<Project> projects = Game.projects;
 
-        // 프로젝트 총 개수 저장
         p.setProperty("project_count", String.valueOf(projects.size()));
+        p.setProperty("m", String.valueOf(Game.money));
+        p.setProperty("a", String.valueOf(Game.ap));
 
         for (int i = 0; i < projects.size(); i++) {
             Project pj = projects.get(i);
@@ -49,6 +50,17 @@ public class FileManager {
             if (pj.getProjectLangType() != null) p.setProperty(prefix + "langType", pj.getProjectLangType().name());
         }
 
+        ArrayList<Staff> staffs = Game.staffs;
+        p.setProperty("staff_count", String.valueOf(staffs.size()));
+
+        for (int i = 0; i < staffs.size(); i++) {
+            System.out.println("enter for");
+            Staff sf = staffs.get(i);
+            String prefix = "staff" + i + "_";
+            // Staff 클래스 내부에 정의된 저장 메서드 호출
+            sf.saveToProperties(p, prefix);
+        }
+
         // 폴더 생성 확인
         File file = new File(path);
         file.getParentFile().mkdirs();
@@ -60,7 +72,6 @@ public class FileManager {
         }
     }
 
-    // 로드 메서드
     public static void load() {
         Properties p = new Properties();
         File file = new File(path);
@@ -69,6 +80,9 @@ public class FileManager {
 
         try (FileInputStream in = new FileInputStream(path)) {
             p.load(in);
+
+            Game.money = Integer.parseInt(p.getProperty("m", "0"));
+            Game.ap = Integer.parseInt(p.getProperty("a", "0"));
 
             int count = Integer.parseInt(p.getProperty("project_count", "0"));
             ArrayList<Project> loadedProjects = new ArrayList<>();
@@ -110,7 +124,22 @@ public class FileManager {
                 loadedProjects.add(pj);
             }
 
-            Game.projects = loadedProjects; // Game 클래스에 setProjects()가 있다고 가정
+            ArrayList<Staff> staffs = Game.staffs;
+            p.getProperty("staff_count", String.valueOf(staffs.size()));
+
+            int sCount = Integer.parseInt(p.getProperty("staff_count", "0"));
+            ArrayList<Staff> loadedStaffs = new ArrayList<>();
+
+            for (int i = 0; i < sCount; i++) {
+                Staff sf = new Staff();
+                String prefix = "staff" + i + "_";
+                // Staff 클래스 내부에 정의된 로드 메서드 호출
+                sf.loadFromProperties(p, prefix);
+                loadedStaffs.add(sf);
+            }
+            Game.staffs = loadedStaffs;
+
+            Game.projects = loadedProjects;
 
         } catch (IOException | NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "로드 실패: " + e.getMessage());

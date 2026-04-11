@@ -6,7 +6,7 @@ import com.dsce.base.core.contents.project.internal.Lang;
 
 public class Project {
     String name = "if you can see this word, it's a bug. please report to me about this bug. github: Crunch-Life";
-    float codeQuality = 0.0f;
+    float codeQuality = 0;
     float graphics = 0.0f;
     float funny = 0.0f;
     float addictive = 0.0f;
