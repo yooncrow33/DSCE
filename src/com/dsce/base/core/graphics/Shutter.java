@@ -67,7 +67,7 @@ public class Shutter {
     public void render(Graphics g) {
         if (!changingScreen) return;
         Graphics2D g2d = (Graphics2D) g;
-        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        //g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         // progress가 0.0 ~ 0.5일 때 화면을 덮고, 0.5 ~ 1.0일 때 열림
         double coverProgress;

@@ -63,6 +63,8 @@ public class StaffTab extends Tab {
 
     Button re = new Button(700+20,100+730,1180-420,60);
 
+    Button de = new Button(20,100+730,660,60);
+
     Button createTeam = new Button(1920-420,100+730,400,60);
 
     RawPointer scrollX = new RawPointer(this,"scrollXInt");
@@ -175,6 +177,9 @@ public class StaffTab extends Tab {
             if (re.isOnMouse()) {
                 InputHandler.setRequestInputTextForGameStringBuilder(true);
             }
+            if (de.isOnMouse()) {
+                deleteTeam();
+            }
         }
     }
 
@@ -259,6 +264,8 @@ public class StaffTab extends Tab {
 
             }
         }
+
+        RenderU.drawButton(g,de,Color.green,Color.gray,Color.white,Color.black,32,"Delete Team",25);
 
         RenderU.drawButton(g,createTeam,Color.green,Color.gray,Color.white,Color.black,32,"Create New Team!",25);
 
@@ -527,5 +534,9 @@ public class StaffTab extends Tab {
                 if (staffAtTeamPanelListScrollY < -maxStaffAtTeamPanelListScrollY) staffAtTeamPanelListScrollY = -maxStaffAtTeamPanelListScrollY;
             }
         }
+    }
+
+    public void deleteTeam() {
+        PopupManager.enablePopup("deleteTeamPopup");
     }
 }

@@ -9,6 +9,7 @@ import com.dsce.base.core.graphics.overlay.StaffListOverly;
 import com.dsce.base.core.graphics.overlay.TeamChangeAtTeamTabListOverlay;
 import com.dsce.base.core.graphics.overlay.TeamChangeListOverlay;
 import com.dsce.base.core.graphics.popup.CommitPopup;
+import com.dsce.base.core.graphics.popup.DeleteTeamPopup;
 import com.dsce.base.core.graphics.popup.DismissPopup;
 import com.dsce.base.core.graphics.popup.internal.PopupManager;
 import com.dsce.base.core.window.Window;
@@ -60,6 +61,7 @@ public class Game implements IClickEvent {
         new CommitPopup(this,"Go to Next Day.","nightnp", GameState.state.day);
         new CommitPopup(this,"Commit?", "daynp", GameState.state.night);
         new DismissPopup();
+        new DeleteTeamPopup();
 
         new StaffListOverly("staff");
         new TeamChangeListOverlay("team");
